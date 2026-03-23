@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustomGPT CLI — Your AI Agents, Your Terminal</title>
+    <meta name="description" content="The official CLI for CustomGPT.ai. 75 commands across 17 topics. Manage agents, conversations, sources — all from your terminal.">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.875 17.5831C6.25 17.5831 5.6875 17.2106 5.4375 16.6519H1C1.25 18.4523 2.5625 19.9424 4.3125 20.3769C3.75 22.612 4.9375 24.6608 6.75 25.592C6.8125 28.0754 8.8125 30 11.3125 30C13 29.0687 14.5 29.0687 15.3125 27.6408V20.2528H12.0625V22.1774C12.625 22.4257 13 22.9845 13 23.6053C13 24.4745 12.3125 25.1574 11.4375 25.1574C10.5625 25.1574 9.875 24.4745 9.875 23.6053C9.875 22.9845 10.25 22.4257 10.8125 22.1774V19.0111H15.375V13.4856H11.75V10.9401H10.25C10 11.4989 9.4375 11.8714 8.8125 11.8714C7.9375 11.8714 7.25 11.1885 7.25 10.3193C7.25 9.45011 7.9375 8.76718 8.8125 8.76718C9.4375 8.76718 10 9.13969 10.25 9.69845H13V12.2439H15.375V4.3592C14.5625 2.93126 13.125 2 11.375 2C8.9375 2 6.875 3.92461 6.8125 6.40798C4.9375 7.27716 3.8125 9.45011 4.375 11.6231C2.625 12.1197 1.3125 13.5477 1.0625 15.3481H5.5C5.75 14.7894 6.3125 14.4169 6.9375 14.4169C7.8125 14.4169 8.5 15.0998 8.5 15.969C8.5 16.8381 7.75 17.5831 6.875 17.5831Z' fill='url(%23paint0_linear_6450_41340)'/%3E%3Cpath d='M27.625 11.6231C28.1875 9.5122 27.0625 7.33925 25.1875 6.40798C25.125 3.92461 23.0625 2 20.625 2C18.9375 2 17.4375 2.93126 16.625 4.3592V7.77384H19.75C20 7.21508 20.5625 6.84257 21.1875 6.84257C22.0625 6.84257 22.75 7.5255 22.75 8.39468C22.75 9.26386 22.0625 9.94678 21.1875 9.94678C20.5625 9.94678 20 9.57428 19.75 9.01552H16.625V23.9157H19V20.9978H21.875C22.125 20.439 22.6875 20.0665 23.3125 20.0665C24.1875 20.0665 24.875 20.7494 24.875 21.6186C24.875 22.4878 24.1875 23.1707 23.3125 23.1707C22.6875 23.1707 22.125 22.7982 21.875 22.2395H20.25V25.1574H16.625V27.6408C17.4375 29.0687 18.875 30 20.625 30C23.125 30 25.125 28.0133 25.1875 25.592C27.0625 24.7228 28.1875 22.612 27.625 20.3769C27.8125 20.3149 27.9375 20.2528 28.125 20.1907V17.7073H22.875V14.6031C22.3125 14.3548 21.9375 13.796 21.9375 13.1752C21.9375 12.306 22.625 11.6231 23.5 11.6231C24.375 11.6231 25.0625 12.306 25.0625 13.1752C25.0625 13.796 24.6875 14.3548 24.125 14.6031V16.4656H29.3125V19.4457C30.375 18.7007 31 17.3969 31 16.031C31 13.9823 29.5625 12.1818 27.625 11.6231Z' fill='url(%23paint1_linear_6450_41340)'/%3E%3Cdefs%3E%3ClinearGradient id='paint0_linear_6450_41340' x1='1' y1='2' x2='31' y2='2' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%236D7CFF'/%3E%3Cstop offset='1' stop-color='%23FF51FF'/%3E%3C/linearGradient%3E%3ClinearGradient id='paint1_linear_6450_41340' x1='1' y1='2' x2='31' y2='2' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%236D7CFF'/%3E%3Cstop offset='1' stop-color='%23FF51FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           CSS CUSTOM PROPERTIES
+           ======================================== */
+        :root {
+            --primary: #7367F0;
+            --primary-hover: #685DD8;
+            --primary-active: #6258CC;
+            --gradient: linear-gradient(64deg, #6D7CFF 16.19%, #FF51FF 83.52%);
+            --gradient-start: #6D7CFF;
+            --gradient-end: #FF51FF;
+            --success: #28C76F;
+            --body-text: #565656;
+            --heading: #212121;
+            --muted: #B7B5BE;
+            --muted-dark: #A5A2AD;
+            --bg-light: #F8F7FA;
+            --bg-dark: #0F0D1A;
+            --card-shadow: 0px 4px 18px 0px rgba(75, 70, 92, 0.10);
+            --primary-shadow: 0px 4px 16px 0px rgba(115, 103, 240, 0.45);
+            --divider: #DBDADE;
+            --radius: 6px;
+            --radius-lg: 10px;
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-code: 'JetBrains Mono', 'Fira Code', monospace;
+            --terminal-bg: #13111C;
+            --terminal-border: rgba(115, 103, 240, 0.15);
+        }
+
+        /* ========================================
+           RESET & BASE
+           ======================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--body-text);
+            background: #fff;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--heading);
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 48px; font-weight: 700; }
+        h2 { font-size: 38px; font-weight: 600; }
+        h3 { font-size: 22px; font-weight: 600; }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease;
+        }
+
+        img { max-width: 100%; display: block; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========================================
+           UTILITY CLASSES
+           ======================================== */
+        .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .eyebrow {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: var(--radius);
+            font-family: var(--font-primary);
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .btn:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .btn-gradient {
+            background: var(--gradient);
+            color: #fff;
+            box-shadow: var(--primary-shadow);
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-1px);
+            box-shadow: 0px 6px 20px 0px rgba(115, 103, 240, 0.55);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-ghost:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-1px);
+            box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-ghost-white {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-ghost-white:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+
+        /* ========================================
+           NAVIGATION
+           ======================================== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(15, 13, 26, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(115, 103, 240, 0.1);
+            padding: 12px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-logo svg {
+            height: 36px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-github {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius);
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.2s ease;
+        }
+
+        .nav-github:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-github svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .nav-cta {
+            padding: 8px 20px;
+            font-size: 14px;
+        }
+
+        /* Hamburger */
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background: var(--bg-dark);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        .hero-orb-1 {
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 70%;
+            height: 80%;
+            background: radial-gradient(ellipse, rgba(109,124,255,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-orb-2 {
+            position: absolute;
+            bottom: -20%;
+            left: -15%;
+            width: 60%;
+            height: 70%;
+            background: radial-gradient(ellipse, rgba(255,81,255,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(115, 103, 240, 0.08);
+            border: 1px solid rgba(115, 103, 240, 0.2);
+            border-radius: 100px;
+            margin-bottom: 24px;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 8px rgba(40, 199, 111, 0.4);
+        }
+
+        .hero-badge-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .hero h1 {
+            color: #fff;
+            margin-bottom: 24px;
+            font-size: 52px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-gradient-line {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.55);
+            margin-bottom: 32px;
+            max-width: 480px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .hero-install {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--terminal-bg);
+            border: 1px solid var(--terminal-border);
+            border-radius: var(--radius);
+            padding: 12px 16px;
+            max-width: 420px;
+        }
+
+        .hero-install code {
+            font-family: var(--font-code);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            flex: 1;
+        }
+
+        .hero-install code .prompt-char {
+            color: var(--muted-dark);
+        }
+
+        .copy-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            background: rgba(115, 103, 240, 0.1);
+            border: none;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .copy-btn:hover {
+            background: rgba(115, 103, 240, 0.2);
+            color: #fff;
+        }
+
+        .copy-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Terminal Window */
+        .terminal {
+            background: var(--terminal-bg);
+            border: 1px solid var(--terminal-border);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 0 60px rgba(115, 103, 240, 0.08), 0 0 120px rgba(109, 124, 255, 0.04);
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dots span:nth-child(1) { background: #FF5F57; }
+        .terminal-dots span:nth-child(2) { background: #FEBC2E; }
+        .terminal-dots span:nth-child(3) { background: #28C840; }
+
+        .terminal-title {
+            flex: 1;
+            text-align: center;
+            font-family: var(--font-code);
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.35);
+            margin-right: 36px;
+        }
+
+        .terminal-body {
+            padding: 20px 24px;
+            font-family: var(--font-code);
+            font-size: 13px;
+            line-height: 1.8;
+            min-height: 280px;
+        }
+
+        .terminal-line {
+            white-space: pre;
+            opacity: 0;
+            transition: opacity 0.1s ease;
+        }
+
+        .terminal-line.visible {
+            opacity: 1;
+        }
+
+        .terminal-line .comment { color: rgba(255, 255, 255, 0.3); }
+        .terminal-line .prompt { color: var(--primary); }
+        .terminal-line .command { color: rgba(255, 255, 255, 0.9); }
+        .terminal-line .flag { color: #FF51FF; }
+        .terminal-line .success { color: var(--success); }
+        .terminal-line .table-text { color: rgba(255, 255, 255, 0.6); }
+        .terminal-line .table-header { color: rgba(255, 255, 255, 0.45); font-weight: 500; }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--primary);
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* ========================================
+           TRUST BAR
+           ======================================== */
+        .trust {
+            background: #fff;
+            border-top: 1px solid var(--divider);
+            border-bottom: 1px solid var(--divider);
+            padding: 48px 0;
+        }
+
+        .trust-label {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        .trust-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .trust-logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            opacity: 0.35;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .trust-logo:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        .trust-logo-mit { color: #A31F34; }
+        .trust-logo-adobe { color: #FF0000; }
+        .trust-logo-dropbox { color: #0061FF; }
+        .trust-logo-medtronic { color: #004B87; }
+        .trust-logo-un { color: #009EDB; }
+        .trust-logo-uva { color: #232D4B; }
+        .trust-logo-icfj { color: #1A3668; }
+
+        /* ========================================
+           QUICK START
+           ======================================== */
+        .quickstart {
+            background: var(--bg-light);
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-header h2 {
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 17px;
+            color: var(--body-text);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            position: relative;
+        }
+
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 48px;
+            left: calc(33.33% + 14px);
+            right: calc(33.33% + 14px);
+            height: 2px;
+            background: var(--gradient);
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .step-card {
+            background: #fff;
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            padding: 32px 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .step-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .step-card p {
+            font-size: 14px;
+            color: var(--body-text);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .step-code {
+            background: var(--terminal-bg);
+            border-radius: var(--radius);
+            padding: 12px 16px;
+            font-family: var(--font-code);
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.85);
+            overflow-x: auto;
+        }
+
+        .step-code .dim { color: rgba(255, 255, 255, 0.35); }
+
+        /* ========================================
+           FEATURES
+           ======================================== */
+        .features {
+            background: #fff;
+            padding: 100px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: #fff;
+            border: 1px solid var(--divider);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: var(--card-shadow);
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #F4F3FE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--primary);
+            fill: none;
+            stroke-width: 1.75;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: var(--body-text);
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           COMMANDS SHOWCASE
+           ======================================== */
+        .commands {
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+            padding: 100px 0;
+        }
+
+        .commands-bg {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        .commands-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .commands .section-header h2 {
+            color: #fff;
+        }
+
+        .commands .section-header p {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .commands-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .command-groups {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .command-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 18px;
+            background: #1A1725;
+            border: 1px solid rgba(115, 103, 240, 0.08);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .command-group:hover,
+        .command-group.active {
+            border-color: rgba(115, 103, 240, 0.25);
+            background: rgba(115, 103, 240, 0.06);
+        }
+
+        .command-group-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            background: rgba(115, 103, 240, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .command-group-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--gradient-start);
+            fill: none;
+            stroke-width: 1.75;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .command-group-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .command-group-name {
+            font-family: var(--font-code);
+            font-size: 14px;
+            font-weight: 500;
+            color: #B4AAFF;
+            margin-bottom: 2px;
+        }
+
+        .command-group-desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .commands-terminal .terminal {
+            border: 1px solid rgba(115, 103, 240, 0.2);
+        }
+
+        .commands-terminal .terminal-body {
+            min-height: 320px;
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .cmd-line { margin-bottom: 2px; }
+        .cmd-comment { color: rgba(255, 255, 255, 0.3); }
+        .cmd-prompt { color: var(--primary); }
+        .cmd-text { color: rgba(255, 255, 255, 0.85); }
+        .cmd-flag { color: #FF51FF; }
+        .cmd-string { color: var(--success); }
+        .cmd-output { color: rgba(255, 255, 255, 0.5); }
+        .cmd-stream { color: #6D7CFF; }
+
+        /* ========================================
+           OUTPUT FORMATS
+           ======================================== */
+        .formats {
+            background: var(--bg-light);
+            padding: 100px 0;
+        }
+
+        .formats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .format-card {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .format-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        .format-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .format-tag-json {
+            background: rgba(109, 124, 255, 0.1);
+            color: var(--gradient-start);
+        }
+
+        .format-tag-table {
+            background: rgba(40, 199, 111, 0.1);
+            color: var(--success);
+        }
+
+        .format-tag-csv {
+            background: rgba(255, 81, 255, 0.1);
+            color: var(--gradient-end);
+        }
+
+        .format-flag {
+            font-family: var(--font-code);
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .format-body {
+            background: var(--terminal-bg);
+            padding: 20px;
+            font-family: var(--font-code);
+            font-size: 12px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.75);
+            overflow-x: auto;
+            min-height: 220px;
+        }
+
+        .format-body .key { color: #6D7CFF; }
+        .format-body .string { color: var(--success); }
+        .format-body .number { color: #FF51FF; }
+        .format-body .punct { color: rgba(255, 255, 255, 0.35); }
+        .format-body .table-border { color: rgba(255, 255, 255, 0.25); }
+        .format-body .table-head { color: rgba(255, 255, 255, 0.6); font-weight: 500; }
+
+        /* ========================================
+           CTA
+           ======================================== */
+        .cta {
+            position: relative;
+            background: var(--gradient);
+            padding: 100px 0;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .cta h2 {
+            color: #fff;
+            font-size: 42px;
+            margin-bottom: 16px;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 36px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .cta-install {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius);
+            padding: 12px 20px;
+            margin: 0 auto;
+        }
+
+        .cta-install code {
+            font-family: var(--font-code);
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .cta-install .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .cta-install .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            background: #fff;
+            border-top: 1px solid var(--divider);
+            padding: 60px 0 32px;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand svg {
+            height: 32px;
+            width: auto;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .footer-links-group h4 {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--heading);
+            margin-bottom: 16px;
+        }
+
+        .footer-links-group ul {
+            list-style: none;
+        }
+
+        .footer-links-group li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links-group a {
+            font-size: 14px;
+            color: var(--body-text);
+            transition: color 0.2s ease;
+        }
+
+        .footer-links-group a:hover {
+            color: var(--primary);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius);
+            color: var(--muted);
+            transition: all 0.2s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--primary);
+            background: #F4F3FE;
+        }
+
+        .footer-social svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--divider);
+            padding-top: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 992px) {
+            h1 { font-size: 40px; }
+            .hero h1 { font-size: 42px; }
+            h2 { font-size: 32px; }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .commands-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .formats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .formats-grid .format-card:last-child {
+                grid-column: 1 / -1;
+                max-width: 50%;
+                margin: 0 auto;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-links {
+                justify-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 34px; }
+            .hero h1 { font-size: 36px; }
+            h2 { font-size: 28px; }
+            h3 { font-size: 20px; }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-hamburger {
+                display: flex;
+            }
+
+            .nav-mobile-open .nav-links {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(15, 13, 26, 0.95);
+                backdrop-filter: blur(16px);
+                padding: 20px 24px;
+                border-bottom: 1px solid rgba(115, 103, 240, 0.1);
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid::before {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .formats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .formats-grid .format-card:last-child {
+                max-width: 100%;
+            }
+
+            .hero-install {
+                max-width: 100%;
+            }
+
+            .terminal-body {
+                padding: 16px;
+                font-size: 12px;
+            }
+
+            .trust-logos {
+                gap: 32px;
+            }
+
+            .trust-logo {
+                font-size: 15px;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 { font-size: 28px; }
+            .hero h1 { font-size: 30px; }
+            h2 { font-size: 24px; }
+
+            .hero {
+                padding: 100px 0 48px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+            }
+
+            .cta h2 {
+                font-size: 28px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+            }
+
+            .quickstart, .features, .commands, .formats, .cta {
+                padding: 72px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         NAVIGATION
+         ============================================ -->
+    <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo" aria-label="CustomGPT Home">
+                <svg width="180" height="38" viewBox="0 0 256 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.36466 28.7618C8.83591 29.8433 9.89621 30.5643 11.0743 30.5643C12.7237 30.5643 14.1374 29.1223 14.1374 27.44C14.1374 25.7577 12.8415 24.4359 11.1921 24.4359C10.014 24.4359 8.95372 25.1569 8.48247 26.2384H0.117812C0.58906 22.7537 3.06311 19.9899 6.36185 19.0286C5.30154 14.8229 7.42216 10.6172 10.9565 8.9349C11.0743 4.12838 14.9621 0.40332 19.5568 0.40332C22.8555 0.40332 25.5652 2.20577 27.0968 4.96952V20.2302H22.6199V15.3035H17.4362C16.9649 14.2221 15.9046 13.5011 14.7265 13.5011C13.0771 13.5011 11.7812 14.8229 11.7812 16.5052C11.7812 18.1875 13.0771 19.5093 14.7265 19.5093C15.9046 19.5093 16.9649 18.7883 17.4362 17.7068H20.2637V22.6335H27.0968V33.328H18.4965V39.4563C17.4362 39.937 16.7293 41.0184 16.7293 42.2201C16.7293 43.9024 18.0252 45.2241 19.6746 45.2241C21.324 45.2241 22.6199 43.9024 22.6199 42.2201C22.6199 41.0184 21.913 39.937 20.8527 39.4563V35.7313H26.979V50.0307C25.4474 52.7944 22.6199 54.5969 19.439 54.5969C14.7265 54.5969 10.9565 50.8718 10.8387 46.0653C7.42216 44.2628 5.18373 40.2975 6.24404 35.9716C2.9453 35.1305 0.471248 32.2465 0 28.7618H8.36466ZM48.2609 8.9349C52.0477 10.7373 54.3198 14.9431 53.1837 19.0286C57.0968 20.1101 60 23.5948 60 27.5602C60 30.2038 58.7377 32.7272 56.5919 34.1691V28.4013H46.115V24.7964C47.2511 24.3158 48.0084 23.2343 48.0084 22.0327C48.0084 20.3504 46.6199 19.0286 44.8527 19.0286C43.0856 19.0286 41.6971 20.3504 41.6971 22.0327C41.6971 23.2343 42.4544 24.3158 43.5905 24.7964V30.8046H54.1936V35.6111C54.0042 35.6712 53.8464 35.7313 53.6886 35.7914C53.5309 35.8514 53.3731 35.9115 53.1837 35.9716C54.3198 40.2975 52.0477 44.383 48.2609 46.0653C48.1346 50.7517 44.0954 54.5969 39.0463 54.5969C35.5119 54.5969 32.6087 52.7944 30.9677 50.0307V45.2241H38.2889V39.5765H41.5708C42.0757 40.658 43.2118 41.3789 44.4741 41.3789C46.2412 41.3789 47.6297 40.0571 47.6297 38.3749C47.6297 36.6926 46.2412 35.3708 44.4741 35.3708C43.2118 35.3708 42.0757 36.0918 41.5708 37.1732H35.7644V42.8209H30.9677V13.9817H37.2791C37.784 15.0632 38.9201 15.7842 40.1823 15.7842C41.9495 15.7842 43.338 14.4624 43.338 12.7801C43.338 11.0978 41.9495 9.77604 40.1823 9.77604C38.9201 9.77604 37.784 10.497 37.2791 11.5785H30.9677V4.96952C32.6087 2.20577 35.6382 0.40332 39.0463 0.40332C43.9691 0.40332 48.1346 4.12838 48.2609 8.9349Z" fill="url(#nav_grad1)"/>
+                    <path d="M90.4442 32.1103C89.7947 33.3256 89.457 33.8012 89.0154 34.3296C87.9243 35.5978 85.5863 37.5 81.5078 37.5C79.1698 37.5 77.0916 36.9188 75.2992 35.36C72.2338 32.7444 72 29.0192 72 27.6982C72 26.5621 72.1299 23.9729 73.8964 21.463C76.4162 17.8435 79.9232 17.5793 81.5338 17.5793C85.7162 17.5793 88.2101 19.7985 89.2232 20.9875C89.7687 21.6215 90.0285 22.0707 90.4182 22.784L85.5604 25.2411C85.4824 25.0561 85.3785 24.8712 85.3006 24.6863C84.9888 24.0522 84.0796 22.1235 81.7416 22.1499C80.6765 22.1499 80.0011 22.5462 79.6374 22.8104C77.819 24.1843 77.8969 26.8791 77.8969 27.3547C77.8969 29.9174 78.7022 31.2913 79.5855 32.0046C80.4947 32.718 81.326 32.7444 81.7676 32.7444C83.7679 32.7444 84.7031 31.3705 85.0668 30.7365C85.1967 30.4723 85.3006 30.2345 85.4824 29.6797L90.4442 32.1103ZM106.42 36.9188H101.329V34.9108C101.147 35.2807 101.017 35.6242 100.42 36.1262C99.7961 36.6546 98.757 37.2622 96.8866 37.2622C96.3931 37.2622 94.6525 37.2358 93.3277 36.0997C92.964 35.7827 92.3405 35.0958 92.0288 33.8804C91.8729 33.3256 91.795 32.7444 91.795 31.5555V23.2332H97.1724V30.6836C97.1724 31.3177 97.1204 32.9029 99.1207 32.9029C99.6403 32.9029 100.16 32.7708 100.498 32.4273C101.121 31.7668 101.043 30.6044 101.043 30.4723V23.2332H106.42V36.9188ZM121.15 32.3481C121.15 33.1407 120.994 33.854 120.604 34.5674C119.072 37.3943 115.487 37.4472 114.759 37.4472C112.759 37.4472 110.707 36.8659 109.018 35.7827C108.499 35.4657 108.031 35.0694 107.537 34.6995L110.551 31.9254C110.811 32.1631 111.044 32.3745 111.304 32.5859C111.746 32.9029 113.071 33.7483 114.707 33.7483C114.837 33.7483 115.253 33.7483 115.591 33.5898C115.98 33.4049 116.11 33.0614 116.11 32.8765C116.11 32.718 116.032 32.5859 116.006 32.5594C115.668 32.031 115.071 32.0839 114.058 31.8989C113.746 31.8461 112.473 31.5819 111.408 31.212C110.161 30.7893 109.2 30.2873 108.603 28.9927C108.369 28.4643 108.239 27.9359 108.239 27.3547C108.239 26.1658 108.784 25.2675 109.018 24.924C109.798 23.8144 111.33 22.6783 114.344 22.6783C115.954 22.6783 118.006 23.0218 119.461 23.788C119.955 24.0522 120.319 24.3164 120.76 24.6598L117.877 27.3283C117.487 27.0641 116.058 26.0073 114.422 26.0073C114.318 26.0073 113.954 26.0073 113.668 26.1394C113.356 26.2979 113.279 26.5885 113.279 26.7206C113.279 27.0641 113.564 27.2226 113.642 27.249C113.876 27.3811 114.396 27.4868 115.045 27.6453C117.019 28.1473 118.162 28.3322 119.02 28.7814C119.695 29.1248 121.15 30.1816 121.15 32.3481ZM131.229 36.8131C130.788 36.8659 129.307 37.1037 127.852 37.1037C125.02 37.1037 123.955 35.9941 123.566 34.6202C123.436 34.1182 123.41 33.6162 123.41 33.1407L123.488 26.5092H121.643V23.5502H123.514L123.566 19.2437H128.943L128.917 23.5502H131.203V26.5092H128.865L128.787 31.7668C128.787 32.3217 128.865 33.1935 130.268 33.1935C130.58 33.1935 130.71 33.1935 131.229 33.0878V36.8131ZM147.595 30.1024C147.595 30.8421 147.465 33.1935 145.855 35.0165C144.919 36.0733 142.919 37.4472 139.568 37.4472C138.789 37.4472 136.373 37.4207 134.398 35.8355C133.411 35.0429 131.905 33.2992 131.905 30.1816C131.905 28.2794 132.476 26.4036 133.749 25.0033C134.658 23.9993 136.581 22.6255 139.854 22.6519C140.555 22.6519 143.335 22.7312 145.335 24.5013C146.842 25.8487 147.595 28.068 147.595 30.1024ZM142.192 29.9703C142.192 27.9095 141.542 26.9584 140.581 26.6149C140.191 26.4828 139.854 26.4828 139.698 26.4828C138.763 26.5092 138.243 26.9848 138.009 27.249C137.594 27.6982 137.23 28.6229 137.23 30.0231C137.23 31.3705 137.568 32.2952 137.905 32.7708C138.113 33.0614 138.399 33.2992 138.711 33.4313C138.867 33.5106 139.256 33.6162 139.724 33.6162C140.347 33.6162 140.919 33.4313 141.334 33.0086C141.802 32.533 142.192 31.5026 142.192 29.9703ZM172.975 36.9188H167.624V29.7589C167.624 29.2305 167.78 27.3811 165.753 27.3811C165.338 27.3811 164.221 27.4868 163.883 28.7021C163.805 29.0192 163.805 29.2834 163.805 29.6268V36.9188H158.454V29.5211C158.454 29.2041 158.454 28.9927 158.376 28.6757C158.064 27.5132 156.999 27.3811 156.583 27.3811C156.22 27.3811 155.103 27.5132 154.739 28.6493C154.687 28.8078 154.609 29.072 154.609 29.4947V36.9188H149.232V23.2332H154.401V25.1882C154.713 24.6334 154.921 24.3692 155.129 24.1579C155.674 23.6295 156.791 22.9161 158.636 22.9161C159.103 22.9161 161.337 22.9161 162.636 24.3956C162.844 24.607 163.026 24.924 163.312 25.4524C163.545 24.8976 163.831 24.607 164.013 24.4221C164.636 23.7616 165.753 22.8897 167.936 22.9161C168.273 22.9161 168.897 22.8897 169.702 23.1275C170.378 23.3124 172.066 23.8937 172.716 25.9016C172.975 26.6942 172.975 27.4339 172.975 28.2794V36.9188ZM193.835 23.2596L188.64 24.7391C188.536 24.2371 188.458 23.8672 188.172 23.4181C187.289 22.0178 185.419 21.965 185.081 21.965C184.665 21.965 183.782 21.9914 182.847 22.5462C180.613 23.8408 180.743 27.0112 180.743 27.4868C180.743 28.2001 180.795 29.0192 180.976 29.7061C181.366 31.0799 182.353 32.2688 183.704 32.7444C184.042 32.8501 184.457 32.9822 185.237 32.9822C186.12 32.9822 187.055 32.7708 187.757 32.1896C187.99 32.0046 188.198 31.7668 188.354 31.5026C188.588 31.0535 188.666 30.4723 188.692 30.3402H185.289V26.5885H193.705V36.9188H189.393V35.6242C188.848 36.0205 188.432 36.2847 188.198 36.4168C186.484 37.3415 184.431 37.4207 183.86 37.4207C183.211 37.4207 181.652 37.3679 180.015 36.6017C178.223 35.7299 174.846 33.1671 174.846 27.7246C174.846 26.5357 175.002 23.3653 177.236 20.7232C179.132 18.4775 181.782 17.5 184.613 17.5C187.575 17.5 190.9 18.5832 192.744 21.0667C193.42 21.9914 193.68 22.8369 193.835 23.2596ZM213.111 24.3428C213.111 24.7127 213.085 25.9016 212.669 27.0112C212.435 27.6453 211.5 29.6004 209.474 30.3666C208.383 30.7893 207.292 30.8421 206.149 30.8421H201.681V36.9188H195.862V18.2662H206.331C208.123 18.2662 209.786 18.3983 211.214 19.6664C213.059 21.2781 213.111 23.5238 213.111 24.3428ZM207.344 24.5277C207.344 24.3164 207.344 23.7616 207.058 23.2332C206.487 22.1764 205.266 22.1764 204.954 22.1764H201.681V26.932H204.98C205.058 26.932 205.629 26.9055 206.019 26.7734C206.538 26.5885 207.344 26.0073 207.344 24.5277ZM228.204 22.8633H223.554V36.9188H217.761V22.8633H213.085V18.2662H228.204V22.8633ZM232.984 36.9188H228.256V31.9518H232.984V36.9188ZM248.934 36.9188H243.661V35.862C243.453 36.0205 243.193 36.2318 242.673 36.496C242.102 36.7867 240.881 37.2358 239.192 37.2358C238.855 37.2358 237.945 37.2358 237.036 36.8923C235.296 36.2054 234.361 34.673 234.361 32.8236C234.361 32.0839 234.516 30.4458 236.205 29.2834C237.322 28.5172 238.751 28.3322 240.05 28.1473C240.803 28.0416 241.608 27.9359 242.362 27.7774C242.699 27.6981 243.063 27.6189 243.401 27.5132C243.401 27.4604 243.401 27.0905 243.323 26.8791C243.167 26.3243 242.777 25.928 241.582 25.928C241.193 25.928 240.933 25.9808 240.803 26.0073C239.972 26.2186 239.894 26.932 239.816 27.2226L234.802 27.3547C234.854 27.0641 234.932 26.7999 234.984 26.5357C235.114 26.0073 235.4 25.0561 236.465 24.2107C237.53 23.3653 239.166 22.784 242.076 22.784C244.18 22.784 247.038 23.1275 248.077 25.3468C248.363 25.9544 248.466 26.5092 248.466 27.7774V35.2279C248.466 36.2318 248.596 36.4432 248.934 36.9188ZM243.375 30.5515C242.699 30.7893 242.024 31.0007 241.349 31.1856C240.777 31.3177 239.972 31.5026 239.556 32.031C239.504 32.1103 239.322 32.3481 239.322 32.6651C239.322 33.0878 239.66 33.7219 240.647 33.7219C241.115 33.7219 241.53 33.5634 241.946 33.352C243.453 32.533 243.375 31.1856 243.375 30.5515ZM256 21.8857H250.649V18.2662H256V21.8857ZM256 36.9188H250.649V23.2332H256V36.9188Z" fill="url(#nav_grad2)"/>
+                    <defs>
+                        <linearGradient id="nav_grad1" x1="0" y1="0.40332" x2="60" y2="0.40332" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#6D7CFF"/><stop offset="1" stop-color="#FF51FF"/>
+                        </linearGradient>
+                        <linearGradient id="nav_grad2" x1="72" y1="17.5" x2="256" y2="17.5" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#6D7CFF"/><stop offset="1" stop-color="#FF51FF"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </a>
+            <ul class="nav-links" role="list">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#commands">Commands</a></li>
+                <li><a href="#quickstart">Quick Start</a></li>
+                <li><a href="https://docs.customgpt.ai" target="_blank" rel="noopener">Docs</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="https://github.com/Poll-The-People/customgpt-cli" target="_blank" rel="noopener" class="nav-github" aria-label="View on GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                </a>
+                <a href="#quickstart" class="btn btn-gradient nav-cta">Get Started</a>
+            </div>
+            <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false" id="hamburger">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-orb-1"></div>
+        <div class="hero-orb-2"></div>
+        <div class="container hero-inner">
+            <div class="hero-content">
+                <div class="hero-badge reveal">
+                    <span class="hero-badge-dot"></span>
+                    <span class="hero-badge-text">v1.0.1 on npm</span>
+                </div>
+                <h1 class="reveal reveal-delay-1">
+                    Your AI agents.<br>
+                    <span class="hero-gradient-line">Your terminal.</span>
+                </h1>
+                <p class="hero-subtitle reveal reveal-delay-2">
+                    The official CLI for CustomGPT.ai. 75 commands across 17 topics. Manage agents, conversations, sources &mdash; all from your terminal.
+                </p>
+                <div class="hero-buttons reveal reveal-delay-3">
+                    <a href="#quickstart" class="btn btn-gradient">Get Started</a>
+                    <a href="https://docs.customgpt.ai" target="_blank" rel="noopener" class="btn btn-ghost">Documentation</a>
+                </div>
+                <div class="hero-install reveal reveal-delay-4">
+                    <code><span class="prompt-char">$</span> npm install -g @customgptai/cli</code>
+                    <button class="copy-btn" aria-label="Copy install command" data-copy="npm install -g @customgptai/cli">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-terminal reveal reveal-delay-2">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="terminal-title">customgptai</span>
+                    </div>
+                    <div class="terminal-body" id="hero-terminal"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TRUST BAR
+         ============================================ -->
+    <section class="trust" aria-label="Trusted by organizations">
+        <div class="container">
+            <p class="trust-label reveal">Trusted by 10,000+ organizations</p>
+            <div class="trust-logos reveal reveal-delay-1">
+                <span class="trust-logo trust-logo-mit">MIT</span>
+                <span class="trust-logo trust-logo-adobe">Adobe</span>
+                <span class="trust-logo trust-logo-dropbox">Dropbox</span>
+                <span class="trust-logo trust-logo-medtronic">Medtronic</span>
+                <span class="trust-logo trust-logo-un">United Nations</span>
+                <span class="trust-logo trust-logo-uva">UVA</span>
+                <span class="trust-logo trust-logo-icfj">ICFJ</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         QUICK START
+         ============================================ -->
+    <section class="quickstart" id="quickstart">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow reveal">Quick Start</span>
+                <h2 class="reveal reveal-delay-1">Up and running in 60 seconds</h2>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card reveal reveal-delay-1">
+                    <div class="step-number">1</div>
+                    <h3>Install</h3>
+                    <p>Install the CLI globally from npm. Works on macOS, Linux, and Windows.</p>
+                    <div class="step-code"><span class="dim">$</span> npm install -g @customgptai/cli</div>
+                </div>
+                <div class="step-card reveal reveal-delay-2">
+                    <div class="step-number">2</div>
+                    <h3>Authenticate</h3>
+                    <p>Log in with your CustomGPT.ai account. Browser-based OAuth opens automatically.</p>
+                    <div class="step-code"><span class="dim">$</span> customgptai auth login</div>
+                </div>
+                <div class="step-card reveal reveal-delay-3">
+                    <div class="step-number">3</div>
+                    <h3>Build</h3>
+                    <p>Start managing your AI agents, conversations, and data sources instantly.</p>
+                    <div class="step-code"><span class="dim">$</span> customgptai agents list</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FEATURES
+         ============================================ -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow reveal">Features</span>
+                <h2 class="reveal reveal-delay-1">Everything you need, nothing you don't</h2>
+            </div>
+            <div class="features-grid">
+                <!-- Feature 1: Complete API Coverage -->
+                <div class="feature-card reveal reveal-delay-1">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                    </div>
+                    <h3>Complete API Coverage</h3>
+                    <p>75 commands across 17 topics. Every endpoint is a CLI command &mdash; auto-generated from the OpenAPI spec.</p>
+                </div>
+                <!-- Feature 2: Real-Time Streaming -->
+                <div class="feature-card reveal reveal-delay-2">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </div>
+                    <h3>Real-Time Streaming</h3>
+                    <p>SSE streaming for conversations. Watch responses arrive token by token, just like the web interface.</p>
+                </div>
+                <!-- Feature 3: Secure Authentication -->
+                <div class="feature-card reveal reveal-delay-3">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Secure Authentication</h3>
+                    <p>Browser-based OAuth with CSRF protection, or set an API key directly. Tokens stored locally.</p>
+                </div>
+                <!-- Feature 4: Flexible Output -->
+                <div class="feature-card reveal reveal-delay-1">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <h3>Flexible Output</h3>
+                    <p>JSON, CSV, table, or machine-readable. Field selection, piping support, and scriptable output.</p>
+                </div>
+                <!-- Feature 5: Built-in Resilience -->
+                <div class="feature-card reveal reveal-delay-2">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+                    </div>
+                    <h3>Built-in Resilience</h3>
+                    <p>Automatic retries with exponential backoff. Rate limit headers respected. Configurable retry count.</p>
+                </div>
+                <!-- Feature 6: Zero Configuration -->
+                <div class="feature-card reveal reveal-delay-3">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                    </div>
+                    <h3>Zero Configuration</h3>
+                    <p>Works out of the box. Install, authenticate, go. Customize defaults when you need to.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         COMMANDS SHOWCASE
+         ============================================ -->
+    <section class="commands" id="commands">
+        <div class="commands-bg"></div>
+        <div class="container commands-inner">
+            <div class="section-header">
+                <span class="eyebrow reveal">17 Topics</span>
+                <h2 class="reveal reveal-delay-1">One CLI for your entire AI workflow</h2>
+            </div>
+            <div class="commands-layout">
+                <div class="command-groups reveal reveal-delay-1">
+                    <div class="command-group active" data-topic="agents">
+                        <div class="command-group-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 00-16 0"/></svg>
+                        </div>
+                        <div class="command-group-info">
+                            <div class="command-group-name">agents</div>
+                            <div class="command-group-desc">Create, list, update, delete agents</div>
+                        </div>
+                    </div>
+                    <div class="command-group" data-topic="conversations">
+                        <div class="command-group-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                        </div>
+                        <div class="command-group-info">
+                            <div class="command-group-name">conversations</div>
+                            <div class="command-group-desc">Chat with agents, stream responses</div>
+                        </div>
+                    </div>
+                    <div class="command-group" data-topic="sources">
+                        <div class="command-group-icon">
+                            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                        </div>
+                        <div class="command-group-info">
+                            <div class="command-group-name">sources</div>
+                            <div class="command-group-desc">Upload and manage data sources</div>
+                        </div>
+                    </div>
+                    <div class="command-group" data-topic="pages">
+                        <div class="command-group-icon">
+                            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </div>
+                        <div class="command-group-info">
+                            <div class="command-group-name">pages</div>
+                            <div class="command-group-desc">Manage indexed pages and content</div>
+                        </div>
+                    </div>
+                    <div class="command-group" data-topic="settings">
+                        <div class="command-group-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                        </div>
+                        <div class="command-group-info">
+                            <div class="command-group-name">settings</div>
+                            <div class="command-group-desc">Configure agent settings and behavior</div>
+                        </div>
+                    </div>
+                    <div class="command-group" data-topic="auth">
+                        <div class="command-group-icon">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                        </div>
+                        <div class="command-group-info">
+                            <div class="command-group-name">auth &amp; config</div>
+                            <div class="command-group-desc">Login, logout, manage API keys</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commands-terminal reveal reveal-delay-2">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="terminal-title">customgptai</span>
+                        </div>
+                        <div class="terminal-body" id="commands-terminal"><pre style="margin:0;font:inherit;color:inherit;"><span class="cmd-comment"># List all your agents</span>
+<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai agents list</span> <span class="cmd-flag">--table</span>
+
+<span class="cmd-output">  ID    Name             Status
+  ----  ---------------  --------
+  1042  Support Bot      active
+  1043  Docs Assistant   active
+  1044  Sales Agent      draft</span>
+
+<span class="cmd-comment"># Create a new agent</span>
+<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai agents create</span> <span class="cmd-flag">--name</span> <span class="cmd-string">"Research Bot"</span> \
+    <span class="cmd-flag">--sitemap</span> <span class="cmd-string">"https://docs.example.com/sitemap.xml"</span>
+
+<span class="cmd-stream">Creating agent...</span>
+<span style="color:#28C76F;">&#10003; Agent created: ID 1045</span></pre></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         OUTPUT FORMATS
+         ============================================ -->
+    <section class="formats" id="formats">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow reveal">Output Formats</span>
+                <h2 class="reveal reveal-delay-1">Your data, your way</h2>
+            </div>
+            <div class="formats-grid">
+                <div class="format-card reveal reveal-delay-1">
+                    <div class="format-header">
+                        <span class="format-tag format-tag-json">JSON</span>
+                        <span class="format-flag">--json</span>
+                    </div>
+                    <div class="format-body"><pre style="margin:0;font:inherit;color:inherit;"><span class="punct">[</span>
+  <span class="punct">{</span>
+    <span class="key">"id"</span><span class="punct">:</span> <span class="number">1042</span><span class="punct">,</span>
+    <span class="key">"name"</span><span class="punct">:</span> <span class="string">"Support Bot"</span><span class="punct">,</span>
+    <span class="key">"status"</span><span class="punct">:</span> <span class="string">"active"</span><span class="punct">,</span>
+    <span class="key">"sources"</span><span class="punct">:</span> <span class="number">12</span>
+  <span class="punct">},</span>
+  <span class="punct">{</span>
+    <span class="key">"id"</span><span class="punct">:</span> <span class="number">1043</span><span class="punct">,</span>
+    <span class="key">"name"</span><span class="punct">:</span> <span class="string">"Docs Assistant"</span><span class="punct">,</span>
+    <span class="key">"status"</span><span class="punct">:</span> <span class="string">"active"</span><span class="punct">,</span>
+    <span class="key">"sources"</span><span class="punct">:</span> <span class="number">8</span>
+  <span class="punct">}</span>
+<span class="punct">]</span></pre></div>
+                </div>
+                <div class="format-card reveal reveal-delay-2">
+                    <div class="format-header">
+                        <span class="format-tag format-tag-table">Table</span>
+                        <span class="format-flag">--table</span>
+                    </div>
+                    <div class="format-body"><pre style="margin:0;font:inherit;color:inherit;"><span class="table-border">+------+-----------------+--------+</span>
+<span class="table-border">|</span> <span class="table-head">ID</span>   <span class="table-border">|</span> <span class="table-head">Name</span>            <span class="table-border">|</span> <span class="table-head">Status</span> <span class="table-border">|</span>
+<span class="table-border">+------+-----------------+--------+</span>
+<span class="table-border">|</span> 1042 <span class="table-border">|</span> Support Bot     <span class="table-border">|</span> active <span class="table-border">|</span>
+<span class="table-border">|</span> 1043 <span class="table-border">|</span> Docs Assistant  <span class="table-border">|</span> active <span class="table-border">|</span>
+<span class="table-border">|</span> 1044 <span class="table-border">|</span> Sales Agent     <span class="table-border">|</span> draft  <span class="table-border">|</span>
+<span class="table-border">+------+-----------------+--------+</span>
+
+<span style="color:rgba(255,255,255,0.35);">3 agents found</span></pre></div>
+                </div>
+                <div class="format-card reveal reveal-delay-3">
+                    <div class="format-header">
+                        <span class="format-tag format-tag-csv">CSV</span>
+                        <span class="format-flag">--csv</span>
+                    </div>
+                    <div class="format-body"><pre style="margin:0;font:inherit;color:inherit;"><span class="table-head">id,name,status,sources</span>
+1042,Support Bot,active,12
+1043,Docs Assistant,active,8
+1044,Sales Agent,draft,3
+
+
+
+
+<span style="color:rgba(255,255,255,0.35);"># Pipe to other tools</span>
+<span class="cmd-prompt">$</span> customgptai agents list <span class="cmd-flag">--csv</span> \
+    <span class="table-border">|</span> cut -d',' -f2,3</pre></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CTA
+         ============================================ -->
+    <section class="cta">
+        <div class="container cta-inner">
+            <h2 class="reveal">Ready to command your AI?</h2>
+            <p class="cta-subtitle reveal reveal-delay-1">Install the CLI, authenticate in seconds, and start building.</p>
+            <div class="cta-buttons reveal reveal-delay-2">
+                <a href="#quickstart" class="btn btn-white">Install Now</a>
+                <a href="https://github.com/Poll-The-People/customgpt-cli" target="_blank" rel="noopener" class="btn btn-ghost-white">View on GitHub</a>
+            </div>
+            <div class="cta-install reveal reveal-delay-3">
+                <code>$ npm install -g @customgptai/cli</code>
+                <button class="copy-btn" aria-label="Copy install command" data-copy="npm install -g @customgptai/cli">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <svg width="140" height="30" viewBox="0 0 256 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.36466 28.7618C8.83591 29.8433 9.89621 30.5643 11.0743 30.5643C12.7237 30.5643 14.1374 29.1223 14.1374 27.44C14.1374 25.7577 12.8415 24.4359 11.1921 24.4359C10.014 24.4359 8.95372 25.1569 8.48247 26.2384H0.117812C0.58906 22.7537 3.06311 19.9899 6.36185 19.0286C5.30154 14.8229 7.42216 10.6172 10.9565 8.9349C11.0743 4.12838 14.9621 0.40332 19.5568 0.40332C22.8555 0.40332 25.5652 2.20577 27.0968 4.96952V20.2302H22.6199V15.3035H17.4362C16.9649 14.2221 15.9046 13.5011 14.7265 13.5011C13.0771 13.5011 11.7812 14.8229 11.7812 16.5052C11.7812 18.1875 13.0771 19.5093 14.7265 19.5093C15.9046 19.5093 16.9649 18.7883 17.4362 17.7068H20.2637V22.6335H27.0968V33.328H18.4965V39.4563C17.4362 39.937 16.7293 41.0184 16.7293 42.2201C16.7293 43.9024 18.0252 45.2241 19.6746 45.2241C21.324 45.2241 22.6199 43.9024 22.6199 42.2201C22.6199 41.0184 21.913 39.937 20.8527 39.4563V35.7313H26.979V50.0307C25.4474 52.7944 22.6199 54.5969 19.439 54.5969C14.7265 54.5969 10.9565 50.8718 10.8387 46.0653C7.42216 44.2628 5.18373 40.2975 6.24404 35.9716C2.9453 35.1305 0.471248 32.2465 0 28.7618H8.36466ZM48.2609 8.9349C52.0477 10.7373 54.3198 14.9431 53.1837 19.0286C57.0968 20.1101 60 23.5948 60 27.5602C60 30.2038 58.7377 32.7272 56.5919 34.1691V28.4013H46.115V24.7964C47.2511 24.3158 48.0084 23.2343 48.0084 22.0327C48.0084 20.3504 46.6199 19.0286 44.8527 19.0286C43.0856 19.0286 41.6971 20.3504 41.6971 22.0327C41.6971 23.2343 42.4544 24.3158 43.5905 24.7964V30.8046H54.1936V35.6111C54.0042 35.6712 53.8464 35.7313 53.6886 35.7914C53.5309 35.8514 53.3731 35.9115 53.1837 35.9716C54.3198 40.2975 52.0477 44.383 48.2609 46.0653C48.1346 50.7517 44.0954 54.5969 39.0463 54.5969C35.5119 54.5969 32.6087 52.7944 30.9677 50.0307V45.2241H38.2889V39.5765H41.5708C42.0757 40.658 43.2118 41.3789 44.4741 41.3789C46.2412 41.3789 47.6297 40.0571 47.6297 38.3749C47.6297 36.6926 46.2412 35.3708 44.4741 35.3708C43.2118 35.3708 42.0757 36.0918 41.5708 37.1732H35.7644V42.8209H30.9677V13.9817H37.2791C37.784 15.0632 38.9201 15.7842 40.1823 15.7842C41.9495 15.7842 43.338 14.4624 43.338 12.7801C43.338 11.0978 41.9495 9.77604 40.1823 9.77604C38.9201 9.77604 37.784 10.497 37.2791 11.5785H30.9677V4.96952C32.6087 2.20577 35.6382 0.40332 39.0463 0.40332C43.9691 0.40332 48.1346 4.12838 48.2609 8.9349Z" fill="url(#foot_grad1)"/>
+                        <path d="M90.4442 32.1103C89.7947 33.3256 89.457 33.8012 89.0154 34.3296C87.9243 35.5978 85.5863 37.5 81.5078 37.5C79.1698 37.5 77.0916 36.9188 75.2992 35.36C72.2338 32.7444 72 29.0192 72 27.6982C72 26.5621 72.1299 23.9729 73.8964 21.463C76.4162 17.8435 79.9232 17.5793 81.5338 17.5793C85.7162 17.5793 88.2101 19.7985 89.2232 20.9875C89.7687 21.6215 90.0285 22.0707 90.4182 22.784L85.5604 25.2411C85.4824 25.0561 85.3785 24.8712 85.3006 24.6863C84.9888 24.0522 84.0796 22.1235 81.7416 22.1499C80.6765 22.1499 80.0011 22.5462 79.6374 22.8104C77.819 24.1843 77.8969 26.8791 77.8969 27.3547C77.8969 29.9174 78.7022 31.2913 79.5855 32.0046C80.4947 32.718 81.326 32.7444 81.7676 32.7444C83.7679 32.7444 84.7031 31.3705 85.0668 30.7365C85.1967 30.4723 85.3006 30.2345 85.4824 29.6797L90.4442 32.1103ZM106.42 36.9188H101.329V34.9108C101.147 35.2807 101.017 35.6242 100.42 36.1262C99.7961 36.6546 98.757 37.2622 96.8866 37.2622C96.3931 37.2622 94.6525 37.2358 93.3277 36.0997C92.964 35.7827 92.3405 35.0958 92.0288 33.8804C91.8729 33.3256 91.795 32.7444 91.795 31.5555V23.2332H97.1724V30.6836C97.1724 31.3177 97.1204 32.9029 99.1207 32.9029C99.6403 32.9029 100.16 32.7708 100.498 32.4273C101.121 31.7668 101.043 30.6044 101.043 30.4723V23.2332H106.42V36.9188ZM121.15 32.3481C121.15 33.1407 120.994 33.854 120.604 34.5674C119.072 37.3943 115.487 37.4472 114.759 37.4472C112.759 37.4472 110.707 36.8659 109.018 35.7827C108.499 35.4657 108.031 35.0694 107.537 34.6995L110.551 31.9254C110.811 32.1631 111.044 32.3745 111.304 32.5859C111.746 32.9029 113.071 33.7483 114.707 33.7483C114.837 33.7483 115.253 33.7483 115.591 33.5898C115.98 33.4049 116.11 33.0614 116.11 32.8765C116.11 32.718 116.032 32.5859 116.006 32.5594C115.668 32.031 115.071 32.0839 114.058 31.8989C113.746 31.8461 112.473 31.5819 111.408 31.212C110.161 30.7893 109.2 30.2873 108.603 28.9927C108.369 28.4643 108.239 27.9359 108.239 27.3547C108.239 26.1658 108.784 25.2675 109.018 24.924C109.798 23.8144 111.33 22.6783 114.344 22.6783C115.954 22.6783 118.006 23.0218 119.461 23.788C119.955 24.0522 120.319 24.3164 120.76 24.6598L117.877 27.3283C117.487 27.0641 116.058 26.0073 114.422 26.0073C114.318 26.0073 113.954 26.0073 113.668 26.1394C113.356 26.2979 113.279 26.5885 113.279 26.7206C113.279 27.0641 113.564 27.2226 113.642 27.249C113.876 27.3811 114.396 27.4868 115.045 27.6453C117.019 28.1473 118.162 28.3322 119.02 28.7814C119.695 29.1248 121.15 30.1816 121.15 32.3481ZM131.229 36.8131C130.788 36.8659 129.307 37.1037 127.852 37.1037C125.02 37.1037 123.955 35.9941 123.566 34.6202C123.436 34.1182 123.41 33.6162 123.41 33.1407L123.488 26.5092H121.643V23.5502H123.514L123.566 19.2437H128.943L128.917 23.5502H131.203V26.5092H128.865L128.787 31.7668C128.787 32.3217 128.865 33.1935 130.268 33.1935C130.58 33.1935 130.71 33.1935 131.229 33.0878V36.8131ZM147.595 30.1024C147.595 30.8421 147.465 33.1935 145.855 35.0165C144.919 36.0733 142.919 37.4472 139.568 37.4472C138.789 37.4472 136.373 37.4207 134.398 35.8355C133.411 35.0429 131.905 33.2992 131.905 30.1816C131.905 28.2794 132.476 26.4036 133.749 25.0033C134.658 23.9993 136.581 22.6255 139.854 22.6519C140.555 22.6519 143.335 22.7312 145.335 24.5013C146.842 25.8487 147.595 28.068 147.595 30.1024ZM142.192 29.9703C142.192 27.9095 141.542 26.9584 140.581 26.6149C140.191 26.4828 139.854 26.4828 139.698 26.4828C138.763 26.5092 138.243 26.9848 138.009 27.249C137.594 27.6982 137.23 28.6229 137.23 30.0231C137.23 31.3705 137.568 32.2952 137.905 32.7708C138.113 33.0614 138.399 33.2992 138.711 33.4313C138.867 33.5106 139.256 33.6162 139.724 33.6162C140.347 33.6162 140.919 33.4313 141.334 33.0086C141.802 32.533 142.192 31.5026 142.192 29.9703ZM172.975 36.9188H167.624V29.7589C167.624 29.2305 167.78 27.3811 165.753 27.3811C165.338 27.3811 164.221 27.4868 163.883 28.7021C163.805 29.0192 163.805 29.2834 163.805 29.6268V36.9188H158.454V29.5211C158.454 29.2041 158.454 28.9927 158.376 28.6757C158.064 27.5132 156.999 27.3811 156.583 27.3811C156.22 27.3811 155.103 27.5132 154.739 28.6493C154.687 28.8078 154.609 29.072 154.609 29.4947V36.9188H149.232V23.2332H154.401V25.1882C154.713 24.6334 154.921 24.3692 155.129 24.1579C155.674 23.6295 156.791 22.9161 158.636 22.9161C159.103 22.9161 161.337 22.9161 162.636 24.3956C162.844 24.607 163.026 24.924 163.312 25.4524C163.545 24.8976 163.831 24.607 164.013 24.4221C164.636 23.7616 165.753 22.8897 167.936 22.9161C168.273 22.9161 168.897 22.8897 169.702 23.1275C170.378 23.3124 172.066 23.8937 172.716 25.9016C172.975 26.6942 172.975 27.4339 172.975 28.2794V36.9188ZM193.835 23.2596L188.64 24.7391C188.536 24.2371 188.458 23.8672 188.172 23.4181C187.289 22.0178 185.419 21.965 185.081 21.965C184.665 21.965 183.782 21.9914 182.847 22.5462C180.613 23.8408 180.743 27.0112 180.743 27.4868C180.743 28.2001 180.795 29.0192 180.976 29.7061C181.366 31.0799 182.353 32.2688 183.704 32.7444C184.042 32.8501 184.457 32.9822 185.237 32.9822C186.12 32.9822 187.055 32.7708 187.757 32.1896C187.99 32.0046 188.198 31.7668 188.354 31.5026C188.588 31.0535 188.666 30.4723 188.692 30.3402H185.289V26.5885H193.705V36.9188H189.393V35.6242C188.848 36.0205 188.432 36.2847 188.198 36.4168C186.484 37.3415 184.431 37.4207 183.86 37.4207C183.211 37.4207 181.652 37.3679 180.015 36.6017C178.223 35.7299 174.846 33.1671 174.846 27.7246C174.846 26.5357 175.002 23.3653 177.236 20.7232C179.132 18.4775 181.782 17.5 184.613 17.5C187.575 17.5 190.9 18.5832 192.744 21.0667C193.42 21.9914 193.68 22.8369 193.835 23.2596ZM213.111 24.3428C213.111 24.7127 213.085 25.9016 212.669 27.0112C212.435 27.6453 211.5 29.6004 209.474 30.3666C208.383 30.7893 207.292 30.8421 206.149 30.8421H201.681V36.9188H195.862V18.2662H206.331C208.123 18.2662 209.786 18.3983 211.214 19.6664C213.059 21.2781 213.111 23.5238 213.111 24.3428ZM207.344 24.5277C207.344 24.3164 207.344 23.7616 207.058 23.2332C206.487 22.1764 205.266 22.1764 204.954 22.1764H201.681V26.932H204.98C205.058 26.932 205.629 26.9055 206.019 26.7734C206.538 26.5885 207.344 26.0073 207.344 24.5277ZM228.204 22.8633H223.554V36.9188H217.761V22.8633H213.085V18.2662H228.204V22.8633ZM232.984 36.9188H228.256V31.9518H232.984V36.9188ZM248.934 36.9188H243.661V35.862C243.453 36.0205 243.193 36.2318 242.673 36.496C242.102 36.7867 240.881 37.2358 239.192 37.2358C238.855 37.2358 237.945 37.2358 237.036 36.8923C235.296 36.2054 234.361 34.673 234.361 32.8236C234.361 32.0839 234.516 30.4458 236.205 29.2834C237.322 28.5172 238.751 28.3322 240.05 28.1473C240.803 28.0416 241.608 27.9359 242.362 27.7774C242.699 27.6981 243.063 27.6189 243.401 27.5132C243.401 27.4604 243.401 27.0905 243.323 26.8791C243.167 26.3243 242.777 25.928 241.582 25.928C241.193 25.928 240.933 25.9808 240.803 26.0073C239.972 26.2186 239.894 26.932 239.816 27.2226L234.802 27.3547C234.854 27.0641 234.932 26.7999 234.984 26.5357C235.114 26.0073 235.4 25.0561 236.465 24.2107C237.53 23.3653 239.166 22.784 242.076 22.784C244.18 22.784 247.038 23.1275 248.077 25.3468C248.363 25.9544 248.466 26.5092 248.466 27.7774V35.2279C248.466 36.2318 248.596 36.4432 248.934 36.9188ZM243.375 30.5515C242.699 30.7893 242.024 31.0007 241.349 31.1856C240.777 31.3177 239.972 31.5026 239.556 32.031C239.504 32.1103 239.322 32.3481 239.322 32.6651C239.322 33.0878 239.66 33.7219 240.647 33.7219C241.115 33.7219 241.53 33.5634 241.946 33.352C243.453 32.533 243.375 31.1856 243.375 30.5515ZM256 21.8857H250.649V18.2662H256V21.8857ZM256 36.9188H250.649V23.2332H256V36.9188Z" fill="url(#foot_grad2)"/>
+                        <defs>
+                            <linearGradient id="foot_grad1" x1="0" y1="0.40332" x2="60" y2="0.40332" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#6D7CFF"/><stop offset="1" stop-color="#FF51FF"/>
+                            </linearGradient>
+                            <linearGradient id="foot_grad2" x1="72" y1="17.5" x2="256" y2="17.5" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#6D7CFF"/><stop offset="1" stop-color="#FF51FF"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <p>The official CLI for CustomGPT.ai</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-group">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="https://customgpt.ai" target="_blank" rel="noopener">CustomGPT.ai</a></li>
+                            <li><a href="https://customgpt.ai/pricing" target="_blank" rel="noopener">Pricing</a></li>
+                            <li><a href="https://docs.customgpt.ai" target="_blank" rel="noopener">API</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-group">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://docs.customgpt.ai" target="_blank" rel="noopener">Docs</a></li>
+                            <li><a href="https://github.com/Poll-The-People/customgpt-cli" target="_blank" rel="noopener">GitHub</a></li>
+                            <li><a href="https://www.npmjs.com/package/@customgptai/cli" target="_blank" rel="noopener">npm</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-group">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="https://customgpt.ai/terms" target="_blank" rel="noopener">Terms</a></li>
+                            <li><a href="https://customgpt.ai/privacy" target="_blank" rel="noopener">Privacy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/Poll-The-People/customgpt-cli" target="_blank" rel="noopener" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/company/customgpt-ai" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/customgpt_ai" target="_blank" rel="noopener" aria-label="X / Twitter">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Slack">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 01-2.52 2.523A2.528 2.528 0 010 15.165a2.527 2.527 0 012.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 012.521-2.52 2.527 2.527 0 012.521 2.52v6.313A2.528 2.528 0 018.834 24a2.528 2.528 0 01-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 01-2.521-2.52A2.528 2.528 0 018.834 0a2.528 2.528 0 012.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 012.521 2.521 2.528 2.528 0 01-2.521 2.521H2.522A2.528 2.528 0 010 8.834a2.528 2.528 0 012.522-2.521h6.312zm10.122 2.521a2.528 2.528 0 012.522-2.521A2.528 2.528 0 0124 8.834a2.528 2.528 0 01-2.522 2.521h-2.522V8.834zm-1.268 0a2.528 2.528 0 01-2.523 2.521 2.527 2.527 0 01-2.52-2.521V2.522A2.527 2.527 0 0115.165 0a2.528 2.528 0 012.523 2.522v6.312zm-2.523 10.122a2.528 2.528 0 012.523 2.522A2.528 2.528 0 0115.165 24a2.527 2.527 0 01-2.52-2.522v-2.522h2.52zm0-1.268a2.527 2.527 0 01-2.52-2.523 2.526 2.526 0 012.52-2.52h6.313A2.527 2.527 0 0124 15.165a2.528 2.528 0 01-2.522 2.523h-6.313z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 CustomGPT.ai &mdash; All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ---- Reduced Motion Check ----
+            var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // ---- Nav Scroll ----
+            var nav = document.getElementById('nav');
+            function handleNavScroll() {
+                if (window.scrollY > 80) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+            window.addEventListener('scroll', handleNavScroll, { passive: true });
+            handleNavScroll();
+
+            // ---- Hamburger ----
+            var hamburger = document.getElementById('hamburger');
+            hamburger.addEventListener('click', function() {
+                var parent = nav;
+                parent.classList.toggle('nav-mobile-open');
+                var expanded = parent.classList.contains('nav-mobile-open');
+                hamburger.setAttribute('aria-expanded', String(expanded));
+            });
+
+            // ---- Scroll Reveal ----
+            var reveals = document.querySelectorAll('.reveal');
+            if (prefersReducedMotion) {
+                reveals.forEach(function(el) { el.classList.add('visible'); });
+            } else {
+                var revealObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+                reveals.forEach(function(el) {
+                    revealObserver.observe(el);
+                });
+            }
+
+            // ---- Copy Buttons ----
+            document.querySelectorAll('.copy-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var text = btn.getAttribute('data-copy');
+                    if (!text) return;
+                    navigator.clipboard.writeText(text).then(function() {
+                        var originalHTML = btn.innerHTML;
+                        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+                        btn.style.color = '#28C76F';
+                        setTimeout(function() {
+                            btn.innerHTML = originalHTML;
+                            btn.style.color = '';
+                        }, 2000);
+                    });
+                });
+            });
+
+            // ---- Terminal Typing Animation ----
+            var terminalEl = document.getElementById('hero-terminal');
+            if (terminalEl) {
+                var lines = [
+                    { type: 'comment', text: '# Authenticate' },
+                    { type: 'command', text: '$ customgptai auth login' },
+                    { type: 'success', text: '\u2713 Authenticated as you@company.com', instant: true },
+                    { type: 'blank', text: '' },
+                    { type: 'comment', text: '# List your agents' },
+                    { type: 'command', text: '$ customgptai agents list --table' },
+                    { type: 'table', text: '', instant: true, table: [
+                        '  ID    Name             Status',
+                        '  ----  ---------------  --------',
+                        '  1042  Support Bot      active',
+                        '  1043  Docs Assistant   active',
+                        '  1044  Sales Agent      draft'
+                    ]},
+                    { type: 'prompt', text: '$ ' }
+                ];
+
+                function createLineEl() {
+                    var div = document.createElement('div');
+                    div.className = 'terminal-line visible';
+                    return div;
+                }
+
+                function typeText(el, text, charDelay, callback) {
+                    if (prefersReducedMotion) {
+                        el.textContent = text;
+                        if (callback) callback();
+                        return;
+                    }
+                    var i = 0;
+                    function next() {
+                        if (i < text.length) {
+                            el.textContent += text[i];
+                            i++;
+                            setTimeout(next, charDelay);
+                        } else {
+                            if (callback) callback();
+                        }
+                    }
+                    next();
+                }
+
+                function colorLine(lineEl, type, text) {
+                    lineEl.innerHTML = '';
+                    if (type === 'comment') {
+                        var span = document.createElement('span');
+                        span.className = 'comment';
+                        span.textContent = text;
+                        lineEl.appendChild(span);
+                    } else if (type === 'command') {
+                        var parts = text.split(' ');
+                        var promptSpan = document.createElement('span');
+                        promptSpan.className = 'prompt';
+                        promptSpan.textContent = parts[0] + ' ';
+                        lineEl.appendChild(promptSpan);
+
+                        for (var j = 1; j < parts.length; j++) {
+                            var word = parts[j];
+                            var s = document.createElement('span');
+                            if (word.startsWith('--')) {
+                                s.className = 'flag';
+                            } else {
+                                s.className = 'command';
+                            }
+                            s.textContent = word + (j < parts.length - 1 ? ' ' : '');
+                            lineEl.appendChild(s);
+                        }
+                    } else if (type === 'success') {
+                        var sspan = document.createElement('span');
+                        sspan.className = 'success';
+                        sspan.textContent = text;
+                        lineEl.appendChild(sspan);
+                    } else if (type === 'prompt') {
+                        var pspan = document.createElement('span');
+                        pspan.className = 'prompt';
+                        pspan.textContent = text;
+                        lineEl.appendChild(pspan);
+                        var cursor = document.createElement('span');
+                        cursor.className = 'cursor';
+                        lineEl.appendChild(cursor);
+                    }
+                }
+
+                function runTerminal() {
+                    terminalEl.innerHTML = '';
+                    var lineIndex = 0;
+
+                    function processLine() {
+                        if (lineIndex >= lines.length) return;
+
+                        var line = lines[lineIndex];
+                        lineIndex++;
+
+                        if (line.type === 'blank') {
+                            var blankEl = createLineEl();
+                            blankEl.innerHTML = '&nbsp;';
+                            terminalEl.appendChild(blankEl);
+                            setTimeout(processLine, 300);
+                            return;
+                        }
+
+                        if (line.type === 'table') {
+                            line.table.forEach(function(row) {
+                                var rowEl = createLineEl();
+                                var tspan = document.createElement('span');
+                                tspan.className = 'table-text';
+                                tspan.textContent = row;
+                                rowEl.appendChild(tspan);
+                                terminalEl.appendChild(rowEl);
+                            });
+                            setTimeout(processLine, 600);
+                            return;
+                        }
+
+                        var lineEl = createLineEl();
+                        terminalEl.appendChild(lineEl);
+
+                        if (line.instant || prefersReducedMotion) {
+                            colorLine(lineEl, line.type, line.text);
+                            setTimeout(processLine, line.type === 'success' ? 600 : 300);
+                        } else {
+                            var charDelay = line.type === 'comment' ? 30 : 50;
+                            var tempSpan = document.createElement('span');
+                            tempSpan.style.color = line.type === 'comment' ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.85)';
+                            lineEl.appendChild(tempSpan);
+
+                            typeText(tempSpan, line.text, charDelay, function() {
+                                colorLine(lineEl, line.type, line.text);
+                                setTimeout(processLine, line.type === 'command' ? 800 : 400);
+                            });
+                        }
+                    }
+
+                    setTimeout(processLine, 800);
+                }
+
+                var terminalCard = terminalEl.closest('.terminal');
+                if (prefersReducedMotion) {
+                    runTerminal();
+                } else {
+                    var termObserver = new IntersectionObserver(function(entries) {
+                        if (entries[0].isIntersecting) {
+                            runTerminal();
+                            termObserver.unobserve(terminalCard);
+                        }
+                    }, { threshold: 0.3 });
+                    termObserver.observe(terminalCard);
+                }
+            }
+
+            // ---- Command Topics Switcher ----
+            var topicData = {
+                agents: '<pre style="margin:0;font:inherit;color:inherit;"><span class="cmd-comment"># List all your agents</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai agents list</span> <span class="cmd-flag">--table</span>\n\n<span class="cmd-output">  ID    Name             Status\n  ----  ---------------  --------\n  1042  Support Bot      active\n  1043  Docs Assistant   active\n  1044  Sales Agent      draft</span>\n\n<span class="cmd-comment"># Create a new agent</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai agents create</span> <span class="cmd-flag">--name</span> <span class="cmd-string">"Research Bot"</span> \\\n    <span class="cmd-flag">--sitemap</span> <span class="cmd-string">"https://docs.example.com/sitemap.xml"</span>\n\n<span class="cmd-stream">Creating agent...</span>\n<span style="color:#28C76F;">\u2713 Agent created: ID 1045</span></pre>',
+
+                conversations: '<pre style="margin:0;font:inherit;color:inherit;"><span class="cmd-comment"># Start a conversation with streaming</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai conversations send-message</span> \\\n    <span class="cmd-flag">--project-id</span> <span class="cmd-output">1042</span> \\\n    <span class="cmd-flag">--session-id</span> <span class="cmd-output">abc123</span> \\\n    <span class="cmd-flag">--prompt</span> <span class="cmd-string">"How do I reset my password?"</span> \\\n    <span class="cmd-flag">--stream</span>\n\n<span class="cmd-stream">Streaming response...</span>\n<span class="cmd-output">To reset your password, navigate to\nSettings > Security > Change Password.\nClick "Reset" and follow the prompts.</span>\n\n<span style="color:#28C76F;">\u2713 Response complete (1.2s)</span></pre>',
+
+                sources: '<pre style="margin:0;font:inherit;color:inherit;"><span class="cmd-comment"># Upload a data source</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai sources create</span> \\\n    <span class="cmd-flag">--project-id</span> <span class="cmd-output">1042</span> \\\n    <span class="cmd-flag">--file</span> <span class="cmd-string">"./knowledge-base.pdf"</span>\n\n<span class="cmd-stream">Uploading... 100%</span>\n<span style="color:#28C76F;">\u2713 Source uploaded: ID 5021</span>\n\n<span class="cmd-comment"># List all sources</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai sources list</span> <span class="cmd-flag">--project-id</span> <span class="cmd-output">1042</span> <span class="cmd-flag">--table</span>\n\n<span class="cmd-output">  ID    File               Pages\n  ----  -----------------  -----\n  5021  knowledge-base     42\n  5022  api-reference      18</span></pre>',
+
+                pages: '<pre style="margin:0;font:inherit;color:inherit;"><span class="cmd-comment"># List indexed pages</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai pages list</span> \\\n    <span class="cmd-flag">--project-id</span> <span class="cmd-output">1042</span> <span class="cmd-flag">--table</span>\n\n<span class="cmd-output">  ID    URL                        Status\n  ----  -------------------------  --------\n  301   /docs/getting-started      indexed\n  302   /docs/api-reference        indexed\n  303   /docs/faq                  pending</span>\n\n<span class="cmd-comment"># Reindex a specific page</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai pages reindex</span> <span class="cmd-flag">--page-id</span> <span class="cmd-output">303</span>\n\n<span style="color:#28C76F;">\u2713 Page 303 queued for reindexing</span></pre>',
+
+                settings: '<pre style="margin:0;font:inherit;color:inherit;"><span class="cmd-comment"># View current agent settings</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai settings get</span> <span class="cmd-flag">--project-id</span> <span class="cmd-output">1042</span>\n\n<span class="cmd-output">  response_source   : user_and_system\n  model             : gpt-4\n  temperature       : 0.7\n  no_answer_message : "I don\'t have that info."</span>\n\n<span class="cmd-comment"># Update a setting</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai settings update</span> \\\n    <span class="cmd-flag">--project-id</span> <span class="cmd-output">1042</span> \\\n    <span class="cmd-flag">--temperature</span> <span class="cmd-output">0.5</span>\n\n<span style="color:#28C76F;">\u2713 Settings updated</span></pre>',
+
+                auth: '<pre style="margin:0;font:inherit;color:inherit;"><span class="cmd-comment"># Login via browser OAuth</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai auth login</span>\n\n<span class="cmd-stream">Opening browser for authentication...</span>\n<span style="color:#28C76F;">\u2713 Authenticated as you@company.com</span>\n\n<span class="cmd-comment"># Or set an API key directly</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai config set</span> <span class="cmd-flag">--api-key</span> <span class="cmd-string">"sk-..."</span>\n\n<span style="color:#28C76F;">\u2713 API key saved</span>\n\n<span class="cmd-comment"># Check current auth status</span>\n<span class="cmd-prompt">$</span> <span class="cmd-text">customgptai auth status</span>\n\n<span class="cmd-output">  Logged in as: you@company.com\n  API Key:      sk-...f83a\n  Expires:      2025-12-31</span></pre>'
+            };
+
+            var cmdTerminal = document.getElementById('commands-terminal');
+            var commandGroups = document.querySelectorAll('.command-group');
+
+            commandGroups.forEach(function(group) {
+                group.addEventListener('click', function() {
+                    commandGroups.forEach(function(g) { g.classList.remove('active'); });
+                    group.classList.add('active');
+                    var topic = group.getAttribute('data-topic');
+                    if (topicData[topic] && cmdTerminal) {
+                        cmdTerminal.innerHTML = topicData[topic];
+                    }
+                });
+            });
+
+            // ---- Smooth Scroll for anchor links ----
+            document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    var href = link.getAttribute('href');
+                    if (href === '#') return;
+                    var target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Close mobile nav if open
+                        nav.classList.remove('nav-mobile-open');
+                    }
+                });
+            });
+
+        })();
+    </script>
+</body>
+</html>
