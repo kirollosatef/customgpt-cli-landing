@@ -876,6 +876,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
+            align-items: stretch;
         }
 
         .format-card {
@@ -883,6 +884,8 @@
             border-radius: var(--radius-lg);
             box-shadow: var(--card-shadow);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .format-header {
@@ -933,7 +936,7 @@
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.75);
             overflow-x: auto;
-            min-height: 220px;
+            flex: 1;
         }
 
         .format-body .key { color: #6D7CFF; }
@@ -1620,12 +1623,13 @@
 1043,Docs Assistant,active,8
 1044,Sales Agent,draft,3
 
-
-
-
 <span style="color:rgba(255,255,255,0.35);"># Pipe to other tools</span>
 <span class="cmd-prompt">$</span> customgptai agents list <span class="cmd-flag">--csv</span> \
-    <span class="table-border">|</span> cut -d',' -f2,3</pre></div>
+    <span class="table-border">|</span> cut -d',' -f2,3
+
+<span style="color:rgba(255,255,255,0.35);"># Export to file</span>
+<span class="cmd-prompt">$</span> customgptai agents list <span class="cmd-flag">--csv</span> \
+    &gt; agents.csv</pre></div>
                 </div>
             </div>
         </div>
