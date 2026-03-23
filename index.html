@@ -329,8 +329,9 @@
             right: -10%;
             width: 70%;
             height: 80%;
-            background: radial-gradient(ellipse, rgba(109,124,255,0.12) 0%, transparent 70%);
+            background: radial-gradient(ellipse, rgba(109,124,255,0.14) 0%, transparent 70%);
             pointer-events: none;
+            animation: orb-float-1 12s ease-in-out infinite;
         }
 
         .hero-orb-2 {
@@ -339,8 +340,84 @@
             left: -15%;
             width: 60%;
             height: 70%;
-            background: radial-gradient(ellipse, rgba(255,81,255,0.08) 0%, transparent 70%);
+            background: radial-gradient(ellipse, rgba(255,81,255,0.1) 0%, transparent 70%);
             pointer-events: none;
+            animation: orb-float-2 15s ease-in-out infinite;
+        }
+
+        .hero-orb-3 {
+            position: absolute;
+            top: 40%;
+            left: 30%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(ellipse, rgba(115,103,240,0.08) 0%, transparent 70%);
+            pointer-events: none;
+            animation: orb-float-3 18s ease-in-out infinite;
+        }
+
+        @keyframes orb-float-1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-30px, 20px) scale(1.05); }
+            66% { transform: translate(20px, -15px) scale(0.95); }
+        }
+
+        @keyframes orb-float-2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(25px, -20px) scale(1.08); }
+            66% { transform: translate(-15px, 25px) scale(0.92); }
+        }
+
+        @keyframes orb-float-3 {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+            50% { transform: translate(40px, -30px) scale(1.1); opacity: 1; }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: particle-rise linear infinite;
+            opacity: 0;
+        }
+
+        .particle--purple {
+            background: rgba(109, 124, 255, 0.4);
+            box-shadow: 0 0 6px rgba(109, 124, 255, 0.3);
+        }
+
+        .particle--pink {
+            background: rgba(255, 81, 255, 0.35);
+            box-shadow: 0 0 6px rgba(255, 81, 255, 0.25);
+        }
+
+        .particle--white {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes particle-rise {
+            0% {
+                transform: translateY(0) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(-10vh) translateX(5px) scale(1);
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(-10px) scale(0.5);
+                opacity: 0;
+            }
         }
 
         .hero-inner {
@@ -952,8 +1029,15 @@
         .cta {
             position: relative;
             background: var(--gradient);
+            background-size: 200% 200%;
+            animation: gradient-shift 8s ease-in-out infinite;
             padding: 100px 0;
             overflow: hidden;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .cta::before {
@@ -1318,6 +1402,8 @@
         <div class="hero-bg"></div>
         <div class="hero-orb-1"></div>
         <div class="hero-orb-2"></div>
+        <div class="hero-orb-3"></div>
+        <div class="particles" id="hero-particles"></div>
         <div class="container hero-inner">
             <div class="hero-content">
                 <div class="hero-badge reveal">
@@ -1473,6 +1559,7 @@
          ============================================ -->
     <section class="commands" id="commands">
         <div class="commands-bg"></div>
+        <div class="particles" id="cmd-particles"></div>
         <div class="container commands-inner">
             <div class="section-header">
                 <span class="eyebrow reveal">17 Topics</span>
@@ -1981,6 +2068,30 @@
                     }
                 });
             });
+
+        // ---- Floating Particles ----
+        if (!prefersReducedMotion) {
+            function spawnParticles(containerId, count) {
+                var container = document.getElementById(containerId);
+                if (!container) return;
+                var colors = ['purple', 'pink', 'white'];
+                for (var i = 0; i < count; i++) {
+                    var p = document.createElement('div');
+                    var color = colors[Math.floor(Math.random() * colors.length)];
+                    var size = 2 + Math.random() * 4;
+                    p.className = 'particle particle--' + color;
+                    p.style.width = size + 'px';
+                    p.style.height = size + 'px';
+                    p.style.left = Math.random() * 100 + '%';
+                    p.style.bottom = '-5%';
+                    p.style.animationDuration = (12 + Math.random() * 20) + 's';
+                    p.style.animationDelay = (Math.random() * 15) + 's';
+                    container.appendChild(p);
+                }
+            }
+            spawnParticles('hero-particles', 25);
+            spawnParticles('cmd-particles', 15);
+        }
 
         })();
     </script>
