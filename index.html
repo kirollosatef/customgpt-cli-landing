@@ -1144,13 +1144,13 @@
             }
 
             .formats-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
             }
 
-            .formats-grid .format-card:last-child {
-                grid-column: 1 / -1;
-                max-width: 50%;
-                margin: 0 auto;
+            .format-body {
+                padding: 16px;
+                font-size: 11px;
             }
 
             .footer-top {
@@ -1208,10 +1208,6 @@
 
             .formats-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .formats-grid .format-card:last-child {
-                max-width: 100%;
             }
 
             .hero-install {
